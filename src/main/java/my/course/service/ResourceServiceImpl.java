@@ -28,8 +28,8 @@ import static my.course.exception.ResponseServiceException.isExceptionOfCode;
 @Log
 public class ResourceServiceImpl implements ResourceService {
 
-    @Value("${song.service.save.url}")
-    private String songServiceSaveUrl;
+    @Value("${song.service.api.save}")
+    private String songServiceApiSave;
 
     private final ResourceServiceValidator validator;
     private final RestTemplateBuilder restTemplateBuilder;
@@ -81,7 +81,7 @@ public class ResourceServiceImpl implements ResourceService {
     private void saveMetadata(SongDto songDto) {
         System.out.println(songDto);
         // save resourceCreateRequestDto in Song Service using restCall
-        String url = songServiceSaveUrl;
+        String url = songServiceApiSave;
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);

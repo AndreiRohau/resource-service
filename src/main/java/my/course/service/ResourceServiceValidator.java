@@ -10,8 +10,8 @@ import java.util.Optional;
 @Component
 public class ResourceServiceValidator {
 
-    @Value("${validator.paramLength}")
-    private Integer paramLength;
+    @Value("${validator.parameter.length}")
+    private Integer parameterLength;
 
     public void validateResourceExistence(Optional<Resource> optResource) {
         if (optResource.isEmpty()) {
@@ -24,7 +24,7 @@ public class ResourceServiceValidator {
      * @param csvId, e.g. "1,2"
      */
     public void validateParamLength(String csvId) {
-        if (csvId.length() >= paramLength) {
+        if (csvId.length() >= parameterLength) {
             throw ResponseServiceException.init500();
         };
     }
