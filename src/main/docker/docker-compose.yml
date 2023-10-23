@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   appr:
-    image: 'resourceservice:latest'
+    image: 'resource-service:latest'
     build:
       context: .
     ports:
