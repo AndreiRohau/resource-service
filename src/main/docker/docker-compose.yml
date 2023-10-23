@@ -1,0 +1,46 @@
+version: '3.9'
+
+services:
+  appr:
+    image: 'resourceservice:latest'
+    build:
+      context: .
+    ports:
+      - 8080:8080 #gives access to local
+    container_name: appr
+    networks:
+      - my_bridge_network
+    external_links:
+      - apps
+    depends_on:
+      - dbr
+    environment:
+      - SERVER_ADDRESS=${SERVER_ADDRESS}
+      - RS_DB_POSTGRES=${RS_DB_POSTGRES}
+      - SPRING_DATASOURCE_URL=${SPRING_DATASOURCE_URL}
+      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=${SPRING_JPA_HIBERNATE_DDL_AUTO}
+      - SPRING_JPA_DEFER_DATASOURCE_INITIALIZATION=${SPRING_JPA_DEFER_DATASOURCE_INITIALIZATION}
+      - SPRING_DATASOURCE_DRIVERCLASSNAME=${SPRING_DATASOURCE_DRIVERCLASSNAME}
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=${SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT}
+      - SPRING_SERVLET_MULTIPART_MAX_FILE_SIZE=${SPRING_SERVLET_MULTIPART_MAX_FILE_SIZE}
+      - SPRING_SERVLET_MULTIPART_MAX_REQUEST_SIZE=${SPRING_SERVLET_MULTIPART_MAX_REQUEST_SIZE}
+      - VALIDATOR_PARAMETER_LENGTH=${VALIDATOR_PARAMETER_LENGTH}
+      - SONG_SERVICE_ADDRESS=${SONG_SERVICE_ADDRESS}
+      - SONG_SERVICE_API_SAVE=${SONG_SERVICE_API_SAVE}
+
+  dbr:
+    image: 'postgres:13.1-alpine'
+    ports:
+      - 5432
+    container_name: dbr
+    networks:
+      - my_bridge_network
+    environment:
+      - POSTGRES_DB=${RS_DB_POSTGRES}
+      - POSTGRES_USER=${SPRING_DATASOURCE_USERNAME}
+      - POSTGRES_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+
+networks:
+  my_bridge_network:
