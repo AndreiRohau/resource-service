@@ -91,6 +91,12 @@ public class ResourceServiceImpl implements ResourceService {
         HttpEntity<SongDto> entity = new HttpEntity<>(songDto, headers);
 
         // send POST request
+        System.out.println(
+                "restTemplate.postForEntity(\n"
+                + "url=" + url + "\n"
+                + "entity=" + entity + "\n"
+                + ")"
+        );
         ResponseEntity<SongCreateResponseDto> response = restTemplate.postForEntity(url, entity, SongCreateResponseDto.class);
 
         if (response.getStatusCode() == HttpStatus.CREATED) {
